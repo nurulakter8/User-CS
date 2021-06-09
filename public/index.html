@@ -27,23 +27,26 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item model-menus-pre-auth">
-						<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+						<button class="btn btn-outline-danger" data-bs-toggle="modal"
 							data-bs-target="#modal-signin-form">Sign In</button>
 					</li>
 					<li class="nav-item model-menus-post-auth">
-						<button type="button" class="btn btn-outline-primary">Home</button>
+						<button id="menu-home" class="btn btn-outline-primary">Home</button>
 					</li>
 					<li class="nav-item model-menus-post-auth">
-						<button type="button" class="btn btn-outline-primary">About</button>
+						<button id="menu-about" class="btn btn-outline-primary">About</button>
 					</li>
 					<li class="nav-item model-menus-post-auth">
-						<button type="button" class="btn btn-outline-danger">Sign Out</button>
+						<button id="menu-signout" class="btn btn-outline-danger">Sign Out</button>
 					</li>
 				</ul>
-				<form class="d-flex model-menus-post-auth">
-					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Search</button>
-				</form>
+				<div class="model-menus-post-auth">
+					<form>
+						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline-success" type="submit">Search</button>
+					</form>
+				</div>
+
 			</div>
 		</div>
 	</nav>
@@ -58,7 +61,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form id= "form-signin" method="post">
+					<form id="form-signin" method="post">
 						<div>
 							<input type="email" name="email" placeholder="email address">
 						</div>
@@ -72,6 +75,10 @@
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<div id="root" class="bg-light p-5 m-3" >
+
 	</div>
 
 
