@@ -1,33 +1,97 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/style.css">
-    <title>Discussion Forum</title>
-  </head>
-  <body>
-    <div class="my-banner">Awesome Discussion Forum!!</div>
+	<title>Discussion Forum</title>
+</head>
+
+<body>
+	<div class="my-banner">Awesome Discussion Forum!!</div>
+
+	<!-- top menus -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item model-menus-pre-auth">
+						<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+							data-bs-target="#modal-signin-form">Sign In</button>
+					</li>
+					<li class="nav-item model-menus-post-auth">
+						<button type="button" class="btn btn-outline-primary">Home</button>
+					</li>
+					<li class="nav-item model-menus-post-auth">
+						<button type="button" class="btn btn-outline-primary">About</button>
+					</li>
+					<li class="nav-item model-menus-post-auth">
+						<button type="button" class="btn btn-outline-danger">Sign Out</button>
+					</li>
+				</ul>
+				<form class="d-flex model-menus-post-auth">
+					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success" type="submit">Search</button>
+				</form>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Modal: sign in -->
+	<div class="modal fade" id="modal-signin-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="modal-signin-form-label" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-signin-form-label">Sign In, Please</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id= "form-signin" method="post">
+						<div>
+							<input type="email" name="email" placeholder="email address">
+						</div>
+						<div>
+							<input type="password" name="password" placeholder="password">
+						</div>
+						<div>
+							<button class="btn btn-outline-primary" type="submit">Sign In</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
-	    <!-- update the version number as needed -->
-		<script defer src="/__/firebase/8.6.5/firebase-app.js"></script>
-		<!-- include only the Firebase features as you need -->
-		<script defer src="/__/firebase/8.6.5/firebase-auth.js"></script>
-		<script defer src="/__/firebase/8.6.5/firebase-firestore.js"></script>
-		<!-- 
+	<!-- update the version number as needed -->
+	<script defer src="/__/firebase/8.6.5/firebase-app.js"></script>
+	<!-- include only the Firebase features as you need -->
+	<script defer src="/__/firebase/8.6.5/firebase-auth.js"></script>
+	<script defer src="/__/firebase/8.6.5/firebase-firestore.js"></script>
+	<!-- 
 		  initialize the SDK after all desired features are loaded, set useEmulator to false
 		  to avoid connecting the SDK to running emulators.
 		-->
-		<script defer src="/__/firebase/init.js?useEmulator=true"></script>
+	<script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
-		<script type="module" src="app.js"></script>
-		
-    <!--  Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-  </body>
+	<script type="module" src="app.js"></script>
+
+	<!--  Bootstrap Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+		crossorigin="anonymous"></script>
+</body>
+
 </html>
