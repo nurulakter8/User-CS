@@ -7,6 +7,8 @@ export const menuAbout = document.getElementById('menu-about');
 //form
 
 export const formSignIn = document.getElementById('form-signin');
+export const formCreateThread = document.getElementById('form-create-thread');
+
 
 //main content root
 export const root = document.getElementById('root');
@@ -16,3 +18,5 @@ export const modalSigninForm = new bootstrap.Modal(document.getElementById('moda
 export const modalInfobox = new bootstrap.Modal(document.getElementById('modal-infobox'),{backdrop: 'static'});
 export const modalInfoboxTittleElement = document.getElementById('modal-infobox-title');
 export const modalInfoboxBodyElement = document.getElementById('modal-info-box-body');
+
+export const modalCreateThread = new bootstrap.Modal(document.getElementById('modal-create-thread'),{backdrop: 'static'});

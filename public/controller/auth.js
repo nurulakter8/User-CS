@@ -2,6 +2,7 @@ import * as Element from '../viewpage/element.js'
 import * as FirebaseController from './firebase_controller.js' 
 import * as Constant from '../model/constant.js' 
 import * as Utill from '../viewpage/utill.js'
+import * as Route from './route.js'
 
 export let currentUser;
 
@@ -38,6 +39,10 @@ export function addEventListener() {
 			elements = document.getElementsByClassName('model-menus-post-auth');
 			for (let index = 0; index < elements.length; index++)
 				elements[index].style.display = 'block';
+
+			const pathname = window.location.pathname;
+			const herf = window.location.herf;
+			Route.routing(pathname,herf);
 		} else {
 			//sign out
 			currentUser = null;
@@ -47,6 +52,9 @@ export function addEventListener() {
 			elements = document.getElementsByClassName('model-menus-post-auth');
 			for (let index = 0; index < elements.length; index++)
 				elements[index].style.display = 'none';
+
+			history.pushState(null,null, Route.routhPath.HOME);
+			Element.root.innerHTML = '<h1>Signed Out</h1>'
 		}
 	});
 }
