@@ -5,6 +5,7 @@ import { Thread } from '../model/thread.js';
 import * as Constant from '../model/constant.js'
 import * as FirebaseController from '../controller/firebase_controller.js'
 import * as Utill from './utill.js'
+import * as ThreadPage from './thread_page.js'
 
 export function addEventListener() {
 	Element.menuHome.addEventListener('click', () => {
@@ -28,7 +29,12 @@ export function addEventListener() {
 		try {
 			const docId = await FirebaseController.addThread(thread);
 			thread.docId = docId;
-			home_page(); // lesson 2
+			//home_page(); // lesson 2
+			const trTag = document.createElement('tr');
+			trTag.innerHTML = buildThreadView(thread);
+			const threadTableBody = document.getElementById('thread-table-body');
+			threadTableBody.prepend(trTag);
+			e.target.reset(); // clears entry in the form
 
 			Utill.info('Sucess', ' A new thread has been created', Element.modalCreateThread);
 		} catch (error) {
@@ -48,9 +54,9 @@ export async function home_page() {
 	let threadList;
 	try {
 		threadList = await FirebaseController.getThreadList();
-	} catch (error) {
+	} catch (e) {
 		if (Constant.DEV) console.log(e);
-		Utill.info('error', JSON.stringify(error))
+		Utill.info('error', JSON.stringify(e))
 	}
 
 	buildHomeScreen(threadList);
@@ -64,12 +70,7 @@ function buildHomeScreen(threadList) {
 		<button class = "btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-create-thread">+ New Thread </button>
 	`;
 
-	if (threadList.length == 0) {
-		html += '<h4> No Threads Found</h4>'
-		Element.root.innerHTML = html;
-		return;
-
-	}
+	
 
 	html += `
 	<table class="table" table-striped>
@@ -83,7 +84,7 @@ function buildHomeScreen(threadList) {
 				<th scope="col">Posted At</th>
 	  		</tr>
 		</thead>
-		<tbody>	
+		<tbody id="thread-table-body">	
 	`
 
 	threadList.forEach(thread => {
@@ -96,12 +97,25 @@ function buildHomeScreen(threadList) {
 
 	html += '</tbody></table>'
 	Element.root.innerHTML = html;
+
+	if (threadList.length == 0) {
+		html += '<h4> No Threads Found</h4>'
+		Element.root.innerHTML = html;
+		return;
+ 
+	}
+
+	ThreadPage.addviewButtonListeners();
+
 }
 
 function buildThreadView (thread){
 	return `
 		<td> 
-			View
+			<form method ="post" class= "thread-view-form">
+				<input type = "hidden" name ="threadId" value="${thread.docId}">
+				<button type="submit" class="btn btn-outline-primary"> View </button>
+			</form>
 		</td>
 		<td> ${thread.title}</td>
 		<td> ${thread.keywordsArray.join(' ')}</td>
