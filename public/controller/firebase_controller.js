@@ -66,3 +66,19 @@ const replies =[];
 	})
 	return replies;
 }
+
+export async function searchThreads(keywordsArray) {
+	let threadList = []
+	const snapshot = await firebase.firestore()
+		.collection(Constant.collectionNames.THREADS)
+		.where('keywordsArray', 'array-contains-any', keywordsArray)
+		.orderBy('timestamp', 'desc')
+		.get();
+
+	snapshot.forEach(doc => {
+		const t = new Thread(doc.data())
+		t.docId = doc.id;
+		threadList.push(t)
+	});
+	return threadList;
+}

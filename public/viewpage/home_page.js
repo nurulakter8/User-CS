@@ -15,9 +15,15 @@ export function addEventListener() {
 
 	Element.formCreateThread.addEventListener('submit', async e => {
 		e.preventDefault();
-		const title = e.target.title.value;
-		const content = e.target.content.value;
-		const keywords = e.target.keywords.value;
+
+		Element.formCreateThreadError.title.innerHTML='';
+		Element.formCreateThreadError.content.innerHTML='';
+		Element.formCreateThreadError.keywords.innerHTML='';
+
+
+		const title = e.target.title.value.trim();
+		const content = e.target.content.value.trim();
+		const keywords = e.target.keywords.value.trim();
 		const uid = Auth.currentUser.uid;
 		const email = Auth.currentUser.email;
 		const timestamp = Date.now();
@@ -25,6 +31,27 @@ export function addEventListener() {
 		const thread = new Thread({
 			uid, title, content, email, timestamp, keywordsArray
 		});
+
+		//validate thread 
+		let valid = true;
+		let error = thread.validate_title();
+		if (error) {
+			valid = false;
+			Element.formCreateThreadError.title.innerHTML = error;
+		}
+		error = thread.validate_keywords();
+		if (error) {
+			valid = false;
+			Element.formCreateThreadError.keywords.innerHTML = error;
+		}
+		error = thread.validate_content();
+		if (error) {
+			valid = false;
+			Element.formCreateThreadError.content.innerHTML = error;
+		}
+		if (!valid) {
+			return;
+		}
 
 		try {
 			const docId = await FirebaseController.addThread(thread);
@@ -39,7 +66,7 @@ export function addEventListener() {
 
 			const noThreadFound = document.getElementById('no-thread-found');
 			if (noThreadFound)
-			noThreadFound.innerHTML = ''
+				noThreadFound.innerHTML = ''
 			e.target.reset(); // clears entry in the form
 
 			Utill.info('Sucess', ' A new thread has been created', Element.modalCreateThread);
@@ -70,13 +97,13 @@ export async function home_page() {
 }
 
 
-function buildHomeScreen(threadList) {
+export function buildHomeScreen(threadList) {
 	let html = ''
 	html += `
 		<button class = "btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-create-thread">+ New Thread </button>
 	`;
 
-	
+
 
 	html += `
 	<table class="table" table-striped>
@@ -96,7 +123,7 @@ function buildHomeScreen(threadList) {
 	threadList.forEach(thread => {
 		html += `
 		<tr>
-		${buildThreadView (thread)}
+		${buildThreadView(thread)}
 		</tr>
 		`
 	})
@@ -108,14 +135,14 @@ function buildHomeScreen(threadList) {
 		html += '<h4 id ="no-thread-found"> No Threads Found</h4>'
 		Element.root.innerHTML = html;
 		return;
- 
+
 	}
 
 	ThreadPage.addviewButtonListeners();
 
 }
 
-function buildThreadView (thread){
+function buildThreadView(thread) {
 	return `
 		<td> 
 			<form method ="post" class= "thread-view-form">
@@ -124,7 +151,7 @@ function buildThreadView (thread){
 			</form>
 		</td>
 		<td> ${thread.title}</td>
-		<td> ${!thread.keywordsArray || Array.isArray(thread.keywordsArray) ? '' :  thread.keywordsArray.join(' ')}</td>
+		<td> ${!thread.keywordsArray || !Array.isArray(thread.keywordsArray) ? '' : thread.keywordsArray.join(' ')}</td>
 		<td> ${thread.email}</td>
 		<td> ${thread.content}</td>
 		<td> ${new Date(thread.timestamp).toString()}</td>
