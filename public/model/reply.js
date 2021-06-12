@@ -1,4 +1,4 @@
-class Reply {
+export class Reply {
 
 	constructor(data) {
 		this.threadId = data.threadId;

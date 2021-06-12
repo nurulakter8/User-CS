@@ -1,4 +1,5 @@
 import * as Constant from '../model/constant.js'
+import { Reply } from '../model/reply.js';
 import { Thread } from '../model/thread.js';
 
 
@@ -48,4 +49,20 @@ export async function addReply (reply){
 		.collection(Constant.collectionNames.REPLIES)
 		.add(reply.serialize());
 	return ref.id;
+}
+
+export async function getReplayList(threadId){
+	const snapshot = await firebase.firestore()
+	.collection(Constant.collectionNames.REPLIES)
+	.where('threadId', '==', threadId)
+	.orderBy('timestamp')
+	.get();
+
+const replies =[];
+	snapshot.forEach(doc => {
+		const r = new Reply(doc.data())
+		r.docId = doc.id;
+		replies.push(r);
+	})
+	return replies;
 }
