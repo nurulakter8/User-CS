@@ -7,25 +7,33 @@ import * as Home from './home_page.js'
 import * as Route from '../controller/route.js'
 
 export function addEventListener(){
-	Element.formSearch.addEventListener('submit', e=> {
+	Element.formSearch.addEventListener('submit', async e=> {
 		e.preventDefault();
 		const searchKeys = e.target.searchKeys.value.trim();
 		if(searchKeys.length == 0){
 			Utill.info('Error, no search keys')
 			return;
 		}
+		const button = Element.formSearch.getElementsByTagName('button')[0];
+		const lable = Utill.disableButton(button);
+
+
 		const searchKeysInArray = searchKeys.toLowerCase().match(/\S+/g);
 		const joinedSearchKeys = searchKeysInArray.join('+')
 		history.pushState(null, null, Route.routhPath.SEARCH + '#' + joinedSearchKeys);
-		search_page(joinedSearchKeys);
+		await search_page(joinedSearchKeys);
+		Utill.enableButton(button,lable);
+		
 	})
 }
 
 export async function search_page (joinedSearchKeys){
 	if(!joinedSearchKeys){
 		Utill.info('Error', 'no search keys')
-		return
+		return;
+
 	}
+
 
 	const searchKeysInArray = joinedSearchKeys.split('+');
 	if(searchKeysInArray.length == 0){

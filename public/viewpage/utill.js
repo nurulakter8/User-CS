@@ -21,3 +21,7 @@ export function enableButton (button, label) {
 	if(label) button.innerHTML = label;
 	button.disabled = false;
 }
+// from web
+export function sleep (ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}

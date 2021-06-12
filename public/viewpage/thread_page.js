@@ -16,12 +16,17 @@ export function addviewButtonListeners() {
 }
 
 export function addViewFormSubmitEvent(form) {
-	form.addEventListener('submit', e => {
+	form.addEventListener('submit', async e => {
 		e.preventDefault();
+
+		const button = e.target.getElementsByTagName('button')[0]; // submit create button
+		const label = Utill.disableButton(button);
+
+
 		const threadId = e.target.threadId.value;
 		history.pushState(null,null, Route.routhPath.THREAD + '#' + threadId);
-		thread_page(threadId);
-
+		await thread_page(threadId);
+		Utill.enableButton(button,label);
 	})
 }
 
@@ -96,6 +101,9 @@ export async function thread_page(threadId) {
 			uid, email, timestamp, content, threadId
 		});
 
+		const button = document.getElementById('button-add-new-reply'); 
+		const label = Utill.disableButton(button);
+
 		try {
 			const docId = await FirebaseController.addReply(reply);
 			reply.docId = docId;
@@ -110,6 +118,9 @@ export async function thread_page(threadId) {
 		replyTag.innerHTML = buildReplyView(reply)
 		document.getElementById('message-reply-body').appendChild(replyTag);
 		document.getElementById('textarea-add-new-reply').value = ''
+
+		Utill.enableButton(button,label);
+
 	})
 }
 

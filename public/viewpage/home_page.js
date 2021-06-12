@@ -7,16 +7,21 @@ import * as FirebaseController from '../controller/firebase_controller.js'
 import * as Utill from './utill.js'
 import * as ThreadPage from './thread_page.js'
 
-export function addEventListener() {
-	Element.menuHome.addEventListener('click', () => {
+export  function addEventListener() {
+	Element.menuHome.addEventListener('click',async () => {
 		history.pushState(null, null, Route.routhPath.HOME);
 		const label = Utill.disableButton(Element.menuHome);
-		home_page();
+		await home_page();
+		//await Utill.sleep(1000);
 		Utill.enableButton(Element.menuHome, label);
 	})
 
 	Element.formCreateThread.addEventListener('submit', async e => {
 		e.preventDefault();
+
+		const button = Element.formCreateThread.getElementsByTagName('button')[0]; // submit create button
+		const label = Utill.disableButton(button);
+		//await Utill.sleep(1000);
 
 		Element.formCreateThreadError.title.innerHTML='';
 		Element.formCreateThreadError.content.innerHTML='';
@@ -52,6 +57,7 @@ export function addEventListener() {
 			Element.formCreateThreadError.content.innerHTML = error;
 		}
 		if (!valid) {
+		Utill.enableButton(button,label);
 			return;
 		}
 
@@ -77,6 +83,7 @@ export function addEventListener() {
 
 			Utill.info('Error to add', JSON.stringify(error), Element.modalCreateThread);
 		}
+		Utill.enableButton(button,label);
 	})
 }
 
