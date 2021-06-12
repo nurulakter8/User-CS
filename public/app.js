@@ -10,16 +10,16 @@ About.addEventListener();
 
 window.onload = () => {
 	const pathname = window.location.pathname;
-	const href = window.location.href;
+	const hash = window.location.hash;
 
-	Route.routing(pathname,href);
+	Route.routing(pathname,hash);
 
 }
 
 window.addEventListener('popstate', e =>{
 	e.preventDefault();
 	const pathname = e.target.location.pathname;
-	const href = e.target.location.href;
-	Route.routing(pathname,href);
+	const hash = e.target.location.hash;
+	Route.routing(pathname,hash);
 
 })

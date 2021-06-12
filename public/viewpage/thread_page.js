@@ -4,6 +4,7 @@ import * as FirebaseController from '../controller/firebase_controller.js';
 import * as Utill from './utill.js'
 import * as Constant from '../model/constant.js'
 import {Reply} from '../model/reply.js'
+import * as Route from '../controller/route.js'
 
 export function addviewButtonListeners() {
 
@@ -18,15 +19,21 @@ export function addViewFormSubmitEvent(form) {
 	form.addEventListener('submit', e => {
 		e.preventDefault();
 		const threadId = e.target.threadId.value;
+		history.pushState(null,null, Route.routhPath.THREAD + '#' + threadId);
 		thread_page(threadId);
 
 	})
 }
 
-async function thread_page(threadId) {
+export async function thread_page(threadId) {
 	if (!Auth.currentUser) {
 		Element.root.innerHTML = '<h1> Protected Page<h1>'
 		return
+	}
+
+	if(!threadId){
+		Utill.info('Error', 'Thread Id is null; Invalid access')
+		return;
 	}
 	//1. get thread form firestore by id 
 	//2. get all replies to this thread
@@ -61,6 +68,12 @@ async function thread_page(threadId) {
 	`;
 
 	html += '<div id ="message-reply-body">'
+	//display all replies 
+	if (replies && replies.length > 0) {
+		replies.forEach(r => {
+			html += buildReplyView(r)
+		})
+	}
 	html += '</div>'
 
 	//add new reply 
