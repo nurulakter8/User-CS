@@ -4,6 +4,7 @@ import * as Auth from '../controller/auth.js'
 import * as FirebaseController from '../controller/firebase_controller.js'
 import * as Constant from '../model/constant.js'
 import * as Home from './home_page.js'
+import * as Route from '../controller/route.js'
 
 export function addEventListener(){
 	Element.formSearch.addEventListener('submit', e=> {
@@ -15,6 +16,7 @@ export function addEventListener(){
 		}
 		const searchKeysInArray = searchKeys.toLowerCase().match(/\S+/g);
 		const joinedSearchKeys = searchKeysInArray.join('+')
+		history.pushState(null, null, Route.routhPath.SEARCH + '#' + joinedSearchKeys);
 		search_page(joinedSearchKeys);
 	})
 }

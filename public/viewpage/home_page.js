@@ -10,7 +10,9 @@ import * as ThreadPage from './thread_page.js'
 export function addEventListener() {
 	Element.menuHome.addEventListener('click', () => {
 		history.pushState(null, null, Route.routhPath.HOME);
+		const label = Utill.disableButton(Element.menuHome);
 		home_page();
+		Utill.enableButton(Element.menuHome, label);
 	})
 
 	Element.formCreateThread.addEventListener('submit', async e => {
@@ -90,6 +92,7 @@ export async function home_page() {
 	} catch (e) {
 		if (Constant.DEV) console.log(e);
 		Utill.info('error', JSON.stringify(e))
+		return;
 	}
 
 	buildHomeScreen(threadList);

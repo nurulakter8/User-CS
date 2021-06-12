@@ -8,3 +8,16 @@ export function info(title, body, closeModal){
 
 
 }
+
+export function disableButton (button){
+	button.disabled = true;
+	const originalLabel = button.innerHTML;
+	button.innerHTML = 'Wait...' // <button> Lable </button
+	return originalLabel;
+
+}
+
+export function enableButton (button, label) {
+	if(label) button.innerHTML = label;
+	button.disabled = false;
+}

@@ -54,8 +54,43 @@ export function addEventListener() {
 				elements[index].style.display = 'none';
 
 			history.pushState(null,null, Route.routhPath.HOME);
-			Element.root.innerHTML = '<h1>Signed Out</h1>'
+			//Element.root.innerHTML = '<h1>Signed Out</h1>'
 		}
 	});
+
+	Element.formCreateAccount.addEventListener('submit', async e=> {
+		e.preventDefault();
+		const email = e.target.email.value;
+		const password = e.target.password.value;
+		const passwordConfirm = e.target.passwordConfirm.value;
+
+		// reset error msg
+		Element.formCreateAccounterror.email.innerHTML = ''
+
+		Element.formCreateAccounterror.passwords.innerHTML = ''
+
+		Element.formCreateAccounterror.passwordConfirm.innerHTML = ''
+
+		let valid = true;
+		// email: html validation 
+		if(password.length < 6){
+			valid = false;
+			Element.formCreateAccounterror.passwords.innerHTML = 'at least 6';
+		}
+		if (passwordConfirm != password){
+			valid = false;
+			Element.formCreateAccounterror.passwordConfirm.innerHTML = 'do not match';
+		}
+		if(!valid) return;
+
+		try {
+			await FirebaseController.createAccount(email,password);
+			Utill.info ('Account Created', 'youre now signed in', Element.modalCreateAccount);
+		} catch (e) {
+			if (Constant.DEV) console.log(e);
+		Utill.info('Error', JSON.stringify(e), Element.modalCreateAccount);
+		//return;
+		}
+	})
 }
 
