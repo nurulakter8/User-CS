@@ -34,6 +34,12 @@ export function addEventListener() {
 			trTag.innerHTML = buildThreadView(thread);
 			const threadTableBody = document.getElementById('thread-table-body');
 			threadTableBody.prepend(trTag);
+			const viewForms = document.getElementsByClassName('thread-view-form')
+			ThreadPage.addViewFormSubmitEvent(viewForms[0])
+			
+			const noThreadFound = document.getElementById('no-thread-found');
+			if (noThreadFound)
+			noThreadFound.innerHTML = ''
 			e.target.reset(); // clears entry in the form
 
 			Utill.info('Sucess', ' A new thread has been created', Element.modalCreateThread);
@@ -99,7 +105,7 @@ function buildHomeScreen(threadList) {
 	Element.root.innerHTML = html;
 
 	if (threadList.length == 0) {
-		html += '<h4> No Threads Found</h4>'
+		html += '<h4 id ="no-thread-found"> No Threads Found</h4>'
 		Element.root.innerHTML = html;
 		return;
  
