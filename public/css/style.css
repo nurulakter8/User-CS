@@ -27,3 +27,7 @@ textarea{
 	width: 95%;
 	min-height: 150px ;
 }
+
+.form-create-thread-error{
+	color: red;
+}

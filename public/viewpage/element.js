@@ -8,6 +8,11 @@ export const menuAbout = document.getElementById('menu-about');
 
 export const formSignIn = document.getElementById('form-signin');
 export const formCreateThread = document.getElementById('form-create-thread');
+export const formCreateThreadError = {
+	title: document.getElementById('form-create-thread-error-title'),
+	keywords: document.getElementById('form-create-thread-error-keywords'),
+	content: document.getElementById('form-create-thread-error-content'),
+}
 
 
 //main content root

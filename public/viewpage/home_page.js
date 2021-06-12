@@ -36,7 +36,7 @@ export function addEventListener() {
 			threadTableBody.prepend(trTag);
 			const viewForms = document.getElementsByClassName('thread-view-form')
 			ThreadPage.addViewFormSubmitEvent(viewForms[0])
-			
+
 			const noThreadFound = document.getElementById('no-thread-found');
 			if (noThreadFound)
 			noThreadFound.innerHTML = ''
@@ -124,7 +124,7 @@ function buildThreadView (thread){
 			</form>
 		</td>
 		<td> ${thread.title}</td>
-		<td> ${thread.keywordsArray.join(' ')}</td>
+		<td> ${!thread.keywordsArray || Array.isArray(thread.keywordsArray) ? '' :  thread.keywordsArray.join(' ')}</td>
 		<td> ${thread.email}</td>
 		<td> ${thread.content}</td>
 		<td> ${new Date(thread.timestamp).toString()}</td>
