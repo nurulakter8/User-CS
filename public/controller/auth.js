@@ -27,7 +27,9 @@ export function addEventListener() {
 		const email = e.target.email.value;
 		try {
 			await FirebaseController.resetPassword(email);
-			Element.modalResetPasswordForm.hide();
+			Utill.info('Email Sent!', 'Please use the link in your email to reset your password', 
+				Element.modalResetPasswordForm);
+			//Element.modalResetPasswordForm.hide();
 		} catch (error) {
 			if (Constant.DEV) console.log(error);
 			Utill.info('Error, try different Email', JSON.stringify(error), Element.modalResetPasswordForm);
