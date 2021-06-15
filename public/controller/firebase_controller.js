@@ -7,6 +7,11 @@ export async function signIn(email, password) {
 	await firebase.auth().signInWithEmailAndPassword(email, password)
 }
 
+// creative assignment 
+export async function resetPassword(email) {
+	await firebase.auth().sendPasswordResetEmail(email)
+}
+
 export async function signOut() {
 	await firebase.auth().signOut();
 }

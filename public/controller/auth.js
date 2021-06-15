@@ -21,6 +21,21 @@ export function addEventListener() {
 
 	});
 
+	// creative assignment 
+	Element.formResetPassword.addEventListener('submit', async e => {
+		e.preventDefault();
+		const email = e.target.email.value;
+		try {
+			await FirebaseController.resetPassword(email);
+			Element.modalResetPasswordForm.hide();
+		} catch (error) {
+			if (Constant.DEV) console.log(error);
+			Utill.info('Error, try different Email', JSON.stringify(error), Element.modalResetPasswordForm);
+		}
+
+	});
+
+
 	Element.menuSignout.addEventListener('click', () => {
 		try {
 			FirebaseController.signOut();

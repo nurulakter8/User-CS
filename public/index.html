@@ -27,9 +27,16 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item model-menus-pre-auth">
-						<button class="btn btn-outline-danger" data-bs-toggle="modal"
+						<button class="btn btn-outline-success" data-bs-toggle="modal"
 							data-bs-target="#modal-signin-form">Sign In</button>
 					</li>
+					<!--creative assignment-->
+					<li class="nav-item model-menus-pre-auth">
+						<button class="btn btn-outline-danger" data-bs-toggle="modal"
+							data-bs-target="#modal-forgot-password-form">Forgot password</button>
+					</li>
+					<!--end-->
+
 					<li class="nav-item model-menus-post-auth">
 						<button id="menu-home" class="btn btn-outline-primary">Home</button>
 					</li>
@@ -136,6 +143,31 @@
 		</div>
 	</div>
 
+		<!-- Modal: forgot password -->
+		<div class="modal fade" id="modal-forgot-password-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="modal-forgot-password-form-label" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-forgot-password-form-label">Forgot password</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="form-resetPassword" method="post">
+						<div>
+							<input type="email" name="email" placeholder="email address">
+						</div>
+						<div>
+							<button class="btn btn-outline-danger" type="submit">Reset password </button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--end-->
+
 	<!-- Modal : create account -->
 	<div class="modal fade" id="modal-create-account" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 		aria-labelledby="modal-create-account-label" aria-hidden="true">
@@ -160,7 +192,7 @@
 							<p id="create-account-error-passwordConfirm" class="create-account-error"></p>
 						</div>
 						<div>
-							<button type="submit"  class="btn btn-outline-primary">Create</button>
+							<button type="submit" class="btn btn-outline-primary">Create</button>
 						</div>
 					</form>
 				</div>
@@ -179,7 +211,8 @@
 			<li>to reply message to threads</li>
 		</ul>
 		No account yet?
-		<button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal-create-account">Create New Account</button>
+		<button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal-create-account">Create New
+			Account</button>
 	</div>
 
 

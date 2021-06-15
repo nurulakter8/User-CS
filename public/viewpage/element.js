@@ -7,6 +7,7 @@ export const menuAbout = document.getElementById('menu-about');
 //form
 export const formSearch = document.getElementById('form-search');
 export const formSignIn = document.getElementById('form-signin');
+export const formResetPassword= document.getElementById('form-resetPassword');
 export const formCreateThread = document.getElementById('form-create-thread');
 export const formCreateThreadError = {
 	title: document.getElementById('form-create-thread-error-title'),
@@ -25,6 +26,7 @@ export const root = document.getElementById('root');
 
 // modal bootstrap object
 export const modalSigninForm = new bootstrap.Modal(document.getElementById('modal-signin-form'),{backdrop: 'static'});
+export const modalResetPasswordForm = new bootstrap.Modal(document.getElementById('modal-forgot-password-form'),{backdrop: 'static'});
 export const modalInfobox = new bootstrap.Modal(document.getElementById('modal-infobox'),{backdrop: 'static'});
 export const modalInfoboxTittleElement = document.getElementById('modal-infobox-title');
 export const modalInfoboxBodyElement = document.getElementById('modal-info-box-body');
