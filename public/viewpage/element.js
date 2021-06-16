@@ -9,6 +9,7 @@ export const formSearch = document.getElementById('form-search');
 export const formSignIn = document.getElementById('form-signin');
 export const formResetPassword= document.getElementById('form-resetPassword');
 export const formCreateThread = document.getElementById('form-create-thread');
+export const formDeleteThread = document.getElementsByClassName('thread-delete-form');
 export const formCreateThreadError = {
 	title: document.getElementById('form-create-thread-error-title'),
 	keywords: document.getElementById('form-create-thread-error-keywords'),

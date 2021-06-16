@@ -3,14 +3,26 @@ import * as Element from './element.js'
 import * as FirebaseController from '../controller/firebase_controller.js';
 import * as Utill from './utill.js'
 import * as Constant from '../model/constant.js'
-import {Reply} from '../model/reply.js'
+import { Reply } from '../model/reply.js'
 import * as Route from '../controller/route.js'
+import { home_page } from './home_page.js';
+
+
 
 export function addviewButtonListeners() {
 
 	const viewButtonForms = document.getElementsByClassName('thread-view-form');
 	for (let i = 0; i < viewButtonForms.length; i++) {
 		addViewFormSubmitEvent(viewButtonForms[i])
+	}
+
+}
+// creative assignment 1
+export function addDeleteButtonListeners() {
+
+	const addDeleteFormSubmit = document.getElementsByClassName('thread-delete-form');
+	for (let i = 0; i < addDeleteFormSubmit.length; i++) {
+		addDeleteFormSubmitEvent(addDeleteFormSubmit[i])
 	}
 
 }
@@ -24,9 +36,29 @@ export function addViewFormSubmitEvent(form) {
 
 
 		const threadId = e.target.threadId.value;
-		history.pushState(null,null, Route.routhPath.THREAD + '#' + threadId);
+		history.pushState(null, null, Route.routhPath.THREAD + '#' + threadId);
 		await thread_page(threadId);
-		Utill.enableButton(button,label);
+		Utill.enableButton(button, label);
+	})
+}
+// creative assignment 1
+export function addDeleteFormSubmitEvent(form) {
+	form.addEventListener('submit', async e => {
+		e.preventDefault();
+		let thread;
+			let replies;
+			const threadId = e.target.threadId.value;
+		try {
+
+			thread  = await FirebaseController.deleteThread(threadId);
+			await home_page();
+			replies = await FirebaseController.getReplayList(threadId)
+		} catch (e) {
+			if (Constant.DEV) console.log(e);
+			Utill.info('Error', JSON.stringify(e))
+			return;
+		}
+
 	})
 }
 
@@ -36,7 +68,7 @@ export async function thread_page(threadId) {
 		return
 	}
 
-	if(!threadId){
+	if (!threadId) {
 		Utill.info('Error', 'Thread Id is null; Invalid access')
 		return;
 	}
@@ -97,11 +129,11 @@ export async function thread_page(threadId) {
 		const uid = Auth.currentUser.uid;
 		const email = Auth.currentUser.email;
 		const timestamp = Date.now();
-		const reply = new Reply ({
+		const reply = new Reply({
 			uid, email, timestamp, content, threadId
 		});
 
-		const button = document.getElementById('button-add-new-reply'); 
+		const button = document.getElementById('button-add-new-reply');
 		const label = Utill.disableButton(button);
 
 		try {
@@ -111,7 +143,7 @@ export async function thread_page(threadId) {
 		} catch (e) {
 			if (Constant.DEV) console.log(e)
 			Utill.info('Error', JSON.stringify(e))
-			
+
 		}
 
 		const replyTag = document.createElement('div');
@@ -119,12 +151,12 @@ export async function thread_page(threadId) {
 		document.getElementById('message-reply-body').appendChild(replyTag);
 		document.getElementById('textarea-add-new-reply').value = ''
 
-		Utill.enableButton(button,label);
+		Utill.enableButton(button, label);
 
 	})
 }
 
-function buildReplyView (reply){
+function buildReplyView(reply) {
 	return `
 		<div class ="border border-primary"> 
 			<div class= "bg-info text-white"> 

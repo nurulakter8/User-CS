@@ -7,14 +7,15 @@ import * as FirebaseController from '../controller/firebase_controller.js'
 import * as Utill from './utill.js'
 import * as ThreadPage from './thread_page.js'
 
-export  function addEventListener() {
-	Element.menuHome.addEventListener('click',async () => {
+export function addEventListener() {
+	Element.menuHome.addEventListener('click', async () => {
 		history.pushState(null, null, Route.routhPath.HOME);
 		const label = Utill.disableButton(Element.menuHome);
 		await home_page();
 		//await Utill.sleep(1000);
 		Utill.enableButton(Element.menuHome, label);
 	})
+
 
 	Element.formCreateThread.addEventListener('submit', async e => {
 		e.preventDefault();
@@ -23,9 +24,9 @@ export  function addEventListener() {
 		const label = Utill.disableButton(button);
 		//await Utill.sleep(1000);
 
-		Element.formCreateThreadError.title.innerHTML='';
-		Element.formCreateThreadError.content.innerHTML='';
-		Element.formCreateThreadError.keywords.innerHTML='';
+		Element.formCreateThreadError.title.innerHTML = '';
+		Element.formCreateThreadError.content.innerHTML = '';
+		Element.formCreateThreadError.keywords.innerHTML = '';
 
 
 		const title = e.target.title.value.trim();
@@ -57,7 +58,7 @@ export  function addEventListener() {
 			Element.formCreateThreadError.content.innerHTML = error;
 		}
 		if (!valid) {
-		Utill.enableButton(button,label);
+			Utill.enableButton(button, label);
 			return;
 		}
 
@@ -70,7 +71,12 @@ export  function addEventListener() {
 			const threadTableBody = document.getElementById('thread-table-body');
 			threadTableBody.prepend(trTag);
 			const viewForms = document.getElementsByClassName('thread-view-form')
+			//creative
+			// const deleteForms = document.getElementsByClassName('thread-delete-form');//
+			
 			ThreadPage.addViewFormSubmitEvent(viewForms[0])
+			// ThreadPage.addDeleteFormSubmitEvent(deleteForms[0])//
+
 
 			const noThreadFound = document.getElementById('no-thread-found');
 			if (noThreadFound)
@@ -83,7 +89,7 @@ export  function addEventListener() {
 
 			Utill.info('Error to add', JSON.stringify(error), Element.modalCreateThread);
 		}
-		Utill.enableButton(button,label);
+		Utill.enableButton(button, label);
 	})
 }
 
@@ -149,6 +155,7 @@ export function buildHomeScreen(threadList) {
 	}
 
 	ThreadPage.addviewButtonListeners();
+	ThreadPage.addDeleteButtonListeners();
 
 }
 
@@ -158,6 +165,11 @@ function buildThreadView(thread) {
 			<form method ="post" class= "thread-view-form">
 				<input type = "hidden" name ="threadId" value="${thread.docId}">
 				<button type="submit" class="btn btn-outline-primary"> View </button>
+			</form>
+			
+			<form method ="post" class= "thread-delete-form">
+				<input type = "hidden" name ="threadId" value="${thread.docId}">
+				<button type="submit" class="btn btn-outline-danger"> Delete </button>
 			</form>
 		</td>
 		<td> ${thread.title}</td>

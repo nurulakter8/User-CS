@@ -11,7 +11,7 @@ export async function signIn(email, password) {
 export async function resetPassword(email) {
 	await firebase.auth().sendPasswordResetEmail(email)
 }
-
+//end
 export async function signOut() {
 	await firebase.auth().signOut();
 }
@@ -22,6 +22,15 @@ export async function addThread(thread) {
 		.add(thread.serialize());
 	return ref.id;  // sql = primary key
 }
+
+//creative asssignment 1
+export async function deleteThread(thread) {
+	await firebase.firestore()
+		.collection(Constant.collectionNames.THREADS)
+		.doc(thread)
+		.delete();  // sql = primary key
+}
+//end
 
 export async function getThreadList() {
 	let threadList = []
@@ -49,21 +58,21 @@ export async function getOneThread(threadId) {
 
 }
 
-export async function addReply (reply){
+export async function addReply(reply) {
 	const ref = await firebase.firestore()
 		.collection(Constant.collectionNames.REPLIES)
 		.add(reply.serialize());
 	return ref.id;
 }
 
-export async function getReplayList(threadId){
+export async function getReplayList(threadId) {
 	const snapshot = await firebase.firestore()
-	.collection(Constant.collectionNames.REPLIES)
-	.where('threadId', '==', threadId)
-	.orderBy('timestamp')
-	.get();
+		.collection(Constant.collectionNames.REPLIES)
+		.where('threadId', '==', threadId)
+		.orderBy('timestamp')
+		.get();
 
-const replies =[];
+	const replies = [];
 	snapshot.forEach(doc => {
 		const r = new Reply(doc.data())
 		r.docId = doc.id;
@@ -88,6 +97,6 @@ export async function searchThreads(keywordsArray) {
 	return threadList;
 }
 
-export async function createAccount(email,password) {
-	await firebase.auth().createUserWithEmailAndPassword(email,password);
+export async function createAccount(email, password) {
+	await firebase.auth().createUserWithEmailAndPassword(email, password);
 }
