@@ -15,7 +15,7 @@ export function addviewButtonListeners() {
 	for (let i = 0; i < viewButtonForms.length; i++) {
 		addViewFormSubmitEvent(viewButtonForms[i])
 	}
-
+	
 }
 // creative assignment 1
 export function addDeleteButtonListeners() {

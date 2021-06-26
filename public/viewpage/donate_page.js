@@ -26,12 +26,17 @@ export function donate_page() {
 			<button id="checkout-button">Checkout</button>
 		</div>
 	`;
-	var firebaseConfig = {
-		// FIREBASE CONFIG HERE!
-	  };
-	
-	  // Initialize Firebase
-	  //firebase.initializeApp(firebaseConfig);
+// 	  // Your web app's Firebase configuration
+//   var firebaseConfig = {
+//     apiKey: "AIzaSyDLJ3FAfyVE-0e8WBwiDZymKeHkvmo4du4",
+//     authDomain: "cs4373-nurula.firebaseapp.com",
+//     projectId: "cs4373-nurula",
+//     storageBucket: "cs4373-nurula.appspot.com",
+//     messagingSenderId: "661818866389",
+//     appId: "1:661818866389:web:ec07150717cd75933b405c"
+//   };
+//   // Initialize Firebase
+//   firebase.initializeApp(firebaseConfig, "threadApp")
 	
 	  const checkoutButton = document.getElementById('checkout-button')
 	  const createStripeCheckout = firebase.functions().httpsCallable('createStripeCheckout')
