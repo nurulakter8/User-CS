@@ -3,11 +3,13 @@ import * as Home from './viewpage/home_page.js'
 import * as About from './viewpage/about_page.js'
 import * as Route from './controller/route.js'
 import * as Search from './viewpage/search_page.js'
+import * as Donate from './viewpage/donate_page.js'
 
 
 Auth.addEventListener();
 Home.addEventListener();
 About.addEventListener();
+Donate.addEventListener();
 Search.addEventListener();
 
 window.onload = () => {

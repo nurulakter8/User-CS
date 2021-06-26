@@ -3,6 +3,7 @@
 export const menuSignout = document.getElementById('menu-signout');
 export const menuHome = document.getElementById('menu-home');
 export const menuAbout = document.getElementById('menu-about');
+export const menuDonation = document.getElementById('menu-donation');
 
 //form
 export const formSearch = document.getElementById('form-search');
