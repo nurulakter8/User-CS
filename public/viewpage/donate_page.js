@@ -1,9 +1,6 @@
 import * as Element from './element.js'
 import * as Route from '../controller/route.js'
 import * as Auth from '../controller/auth.js'
-import * as FirebaseController from '../controller/firebase_controller.js';
-
-
 
 export function addEventListener() {
 	Element.menuDonation.addEventListener('click', () => {
@@ -26,17 +23,6 @@ export function donate_page() {
 			<button id="checkout-button">Checkout</button>
 		</div>
 	`;
-// 	  // Your web app's Firebase configuration
-//   var firebaseConfig = {
-//     apiKey: "AIzaSyDLJ3FAfyVE-0e8WBwiDZymKeHkvmo4du4",
-//     authDomain: "cs4373-nurula.firebaseapp.com",
-//     projectId: "cs4373-nurula",
-//     storageBucket: "cs4373-nurula.appspot.com",
-//     messagingSenderId: "661818866389",
-//     appId: "1:661818866389:web:ec07150717cd75933b405c"
-//   };
-//   // Initialize Firebase
-//   firebase.initializeApp(firebaseConfig, "threadApp")
 	
 	  const checkoutButton = document.getElementById('checkout-button')
 	  const createStripeCheckout = firebase.functions().httpsCallable('createStripeCheckout')
